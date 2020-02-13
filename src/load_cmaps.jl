@@ -3,6 +3,6 @@ cmap_names = readdir(joinpath(path,"data"))
 
 for name in cmap_names
     @eval begin
-        $(Symbol(name)) = ColorMap($name,readdlm(joinpath(path,"data",$name,$name*".txt")))
+        global $(Symbol(name)) = ColorMap($name,readdlm(joinpath(path,"data",$name,$name*".txt")))
     end
 end
