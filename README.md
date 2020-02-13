@@ -12,8 +12,7 @@ julia> pcolormesh(rand(100,100),cmap=batlow)
 ```
 
 ## Installation
-
-Not registered yet, therefore do
+Requires `PyPlot` to be properly set up. Then do
 ```julia
 julia> ] add https://github.com/milankl/ScientificColourMaps.jl
 ```
