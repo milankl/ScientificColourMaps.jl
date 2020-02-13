@@ -2,10 +2,22 @@ module ScientificColourMaps
 
     using PyPlot, DelimitedFiles
 
-    export acton, bamako, batlow, berlin, bilbao, broc, brocO, buda, cork, corkO, davos, devon, grayC,
-            hawaii, imola, lajolla, lapaz, lisbon, nuuk, oleron, oslo, roma, romaO, tofino, tokyo,
-            turku, vik, vikO
+    path = @__DIR__
+    cmap_names = readdir(joinpath(path,"data"))
 
-    include("load_cmaps.jl")
+    for name in cmap_names
+        @eval begin
 
+            # standard colour maps
+            global $(Symbol(name)) = ColorMap($name,readdlm(joinpath(path,"data",$name,$name*".txt")))
+            export $(Symbol(name))
+
+            # CategoricalPalettes
+            pathCP = joinpath(path,"data",$name,"CategoricalPalettes")
+            if isdir(pathCP)
+                global $(Symbol(name*"S")) = ColorMap($name*"S",readdlm(joinpath(pathCP,$name*"S.txt")))
+                export $(Symbol(name*"S"))
+            end
+        end
+    end
 end
